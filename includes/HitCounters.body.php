@@ -92,7 +92,7 @@ class HitCounters {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public static function numberOfViews(
-		Parser &$parser, PPFrame $frame, $args
+		Parser $parser, PPFrame $frame, $args
 	) {
 		return self::views();
 	}
@@ -103,7 +103,7 @@ class HitCounters {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public static function numberOfPageViews(
-		Parser &$parser, PPFrame $frame, $args
+		Parser $parser, PPFrame $frame, $args
 	) {
 		return self::getCount( $frame->title );
 	}
