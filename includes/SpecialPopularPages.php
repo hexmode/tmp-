@@ -29,9 +29,9 @@
 
 namespace HitCounters;
 
+use Linker;
 use QueryPage;
 use Title;
-use Linker;
 
 class SpecialPopularPages extends QueryPage {
 	public function __construct( $name = 'PopularPages' ) {

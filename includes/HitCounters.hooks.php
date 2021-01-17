@@ -1,20 +1,20 @@
 <?php
 namespace HitCounters;
 
-use DatabaseUpdater;
-use RequestContext;
-use Title;
-use Parser;
-use DeferredUpdates;
 use CoreParserFunctions;
-use ViewCountUpdate;
+use DatabaseUpdater;
+use DeferredUpdates;
+use Parser;
+use PPFrame;
+use QuickTemplate;
+use RequestContext;
 use SiteStatsUpdate;
 use SiteStats;
 use SkinTemplate;
-use QuickTemplate;
-use PPFrame;
-use WikiPage;
+use Title;
 use User;
+use ViewCountUpdate;
+use WikiPage;
 
 /**
  * PHPMD will warn us about these things here but since they're hooks,
@@ -124,9 +124,7 @@ class Hooks {
 			!$user->isAllowed( 'bot' ) &&
 			$wikipage->exists()
 		) {
-			DeferredUpdates::addUpdate(
-				new ViewCountUpdate( $wikipage->getId() )
-			);
+			DeferredUpdates::addUpdate( new ViewCountUpdate( $wikipage->getId() ) );
 			DeferredUpdates::addUpdate( new SiteStatsUpdate( 1, 0, 0 ) );
 		}
 	}

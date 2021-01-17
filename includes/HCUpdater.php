@@ -3,6 +3,8 @@
 namespace HitCounters;
 
 use DatabaseUpdater;
+use Installer;
+use MWException;
 
 /* hack to get at protected member */
 class HCUpdater extends DatabaseUpdater {
