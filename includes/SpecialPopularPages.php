@@ -29,8 +29,10 @@
 
 namespace HitCounters;
 
-use Linker;
+use Html;
 use QueryPage;
+use Linker;
+use Skin;
 use Title;
 
 class SpecialPopularPages extends QueryPage {
@@ -75,7 +77,7 @@ class SpecialPopularPages extends QueryPage {
 
 		$link = Linker::linkKnown(
 			$title,
-			htmlspecialchars( $wgContLang->convert( $title->getPrefixedText() ) )
+			$wgContLang->convert( htmlspecialchars( $title->getPrefixedText() ) )
 		);
 
 		return $this->getLanguage()->specialList(
