@@ -1,14 +1,14 @@
 {
 	"name": "HitCounters",
 	"namemsg": "hitcounters-extensionname",
-	"version": "0.2",
+	"version": "0.3.0",
 	"author": [
 		"[//mwstake.org Mark A. Hershberger]"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:HitCounters",
 	"descriptionmsg": "hitcounters-desc",
 	"type": "variable",
-	"license-name": "GPL-3.0+",
+	"license-name": "GPL-3.0-or-later",
 	"MessagesDirs": {
 		"HitCounters": [
 			"i18n"
@@ -19,40 +19,23 @@
 		"HitCountersAlias": "HitCounters.i18n.alias.php"
 	},
 	"SpecialPages": {
-		"PopularPages": "SpecialPopularPages"
+		"PopularPages": "includes/SpecialPopularPages"
 	},
 	"Hooks": {
-		"SpecialPage_initList": [
-			"HitCounters\\Hooks::onSpecialPage_initList"
-		],
-		"SpecialStatsAddExtra": [
-			"HitCounters\\Hooks::onSpecialStatsAddExtra"
-		],
-		"LoadExtensionSchemaUpdates": [
-			"HitCounters\\Hooks::onLoadExtensionSchemaUpdates"
-		],
-		"MagicWordwgVariableIDs": [
-			"HitCounters\\Hooks::onMagicWordwgVariableIDs"
-		],
-		"ParserGetVariableValueSwitch": [
-			"HitCounters\\Hooks::onParserGetVariableValueSwitch"
-		],
-		"ParserFirstCallInit": [
-			"HitCounters\\Hooks::onParserFirstCallInit"
-		],
-		"PageViewUpdates": [
-			"HitCounters\\Hooks::onPageViewUpdates"
-		],
-		"SkinTemplateOutputPageBeforeExec": [
-			"HitCounters\\Hooks::onSkinTemplateOutputPageBeforeExec"
-		]
+		"SpecialStatsAddExtra": "Hooks::onSpecialStatsAddExtra",
+		"LoadExtensionSchemaUpdates": "Hooks::onLoadExtensionSchemaUpdates",
+		"MagicWordwgVariableIDs": "Hooks::onMagicWordwgVariableIDs",
+		"ParserGetVariableValueSwitch": "Hooks::onParserGetVariableValueSwitch",
+		"ParserFirstCallInit": "Hooks::onParserFirstCallInit",
+		"PageViewUpdates": "Hooks::onPageViewUpdates",
+		"SkinTemplateOutputPageBeforeExec": "Hooks::onSkinTemplateOutputPageBeforeExec"
 	},
 	"AutoloadClasses": {
-		"HitCounters\\Hooks": "HitCounters.hooks.php",
-		"HitCounters\\HitCounters": "HitCounters.body.php",
-		"ViewCountUpdate": "ViewCountUpdate.php",
-		"HitCounters\\SpecialPopularPages": "SpecialPopularPages.php",
-		"HitCounters\\HCUpdater": "HCUpdater.php"
+		"HitCounters\\Hooks": "includes/HitCounters.hooks.php",
+		"HitCounters\\HitCounters": "includes/HitCounters.body.php",
+		"ViewCountUpdate": "includes/ViewCountUpdate.php",
+		"HitCounters\\SpecialPopularPages": "includes/SpecialPopularPages.php",
+		"HitCounters\\HCUpdater": "includes/HCUpdater.php"
 	},
 	"config": {
 		"HitcounterUpdateFreq": 1,

@@ -1,20 +1,20 @@
 <?php
 namespace HitCounters;
 
-use DatabaseUpdater;
-use RequestContext;
-use Title;
-use Parser;
-use DeferredUpdates;
 use CoreParserFunctions;
-use ViewCountUpdate;
+use DatabaseUpdater;
+use DeferredUpdates;
+use Parser;
+use PPFrame;
+use QuickTemplate;
+use RequestContext;
 use SiteStatsUpdate;
 use SiteStats;
 use SkinTemplate;
-use QuickTemplate;
-use PPFrame;
-use WikiPage;
+use Title;
 use User;
+use ViewCountUpdate;
+use WikiPage;
 
 /**
  * PHPMD will warn us about these things here but since they're hooks,
@@ -25,10 +25,6 @@ use User;
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Hooks {
-	public static function onSpecialPage_initList( array &$specialPages ) {
-		$specialPages['PopularPages'] = 'HitCounters\SpecialPopularPages';
-	}
-
 	public static function onLoadExtensionSchemaUpdates(
 		DatabaseUpdater $updater
 	) {
@@ -56,14 +52,14 @@ class Hooks {
 	protected static function getMostViewedPages( RequestContext $statsPage ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$param = HitCounters::getQueryInfo();
-		$options['ORDER BY'] = array( 'page_counter DESC' );
+		$options['ORDER BY'] = [ 'page_counter DESC' ];
 		$options['LIMIT'] = 10;
 		$res = $dbr->select(
-			$param['tables'], $param['fields'], array(), __METHOD__,
+			$param['tables'], $param['fields'], [], __METHOD__,
 			$options, $param['join_conds']
 		);
 
-		$ret = array();
+		$ret = [];
 		if ( $res->numRows() > 0 ) {
 			foreach ( $res as $row ) {
 				$title = Title::makeTitleSafe( $row->namespace, $row->title );
@@ -79,13 +75,22 @@ class Hooks {
 		return $ret;
 	}
 
+	protected static function getMagicWords() {
+		return [
+			'numberofviews'     => [ 'HitCounters\HitCounters', 'numberOfViews' ],
+			'numberofpageviews' => [ 'HitCounters\HitCounters', 'numberOfPageViews' ]
+		];
+	}
+
 	public static function onMagicWordwgVariableIDs( array &$variableIDs ) {
-		$variableIDs[] = 'numberofviews';
+		$variableIDs = array_merge( $variableIDs, array_keys( self::getMagicWords() ) );
 	}
 
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'numberofviews', 'HitCounters:numberOfViews',
-			Parser::SFH_OBJECT_ARGS );
+		foreach ( self::getMagicWords() as $magicWord => $processingFunction ) {
+			$parser->setFunctionHook( $magicWord, $processingFunction,
+				Parser::SFH_OBJECT_ARGS );
+		}
 		return true;
 	}
 
@@ -93,11 +98,16 @@ class Hooks {
 		array $cache, &$magicWordId, &$ret, PPFrame &$frame ) {
 		global $wgDisableCounters;
 
-		if ( !$wgDisableCounters && $magicWordId === 'numberofviews' ) {
-			$ret = CoreParserFunctions::formatRaw(
-				HitCounters::numberOfViews( $parser, $frame, null ), null );
-		} elseif ( $wgDisableCounters && $magicWordId === 'numberofviews' ) {
-			wfDebugLog( 'HitCounters', 'Counters are disabled!' );
+		foreach ( self::getMagicWords() as $magicWord => $processingFunction ) {
+			if ( $magicWord === $magicWordId ) {
+				if ( !$wgDisableCounters ) {
+					$ret = CoreParserFunctions::formatRaw(
+						call_user_func( $processingFunction, $parser, $frame, null ), null );
+					return true;
+				} else {
+					wfDebugLog( 'HitCounters', 'Counters are disabled!' );
+				}
+			}
 		}
 		return true;
 	}
@@ -111,9 +121,7 @@ class Hooks {
 			!$user->isAllowed( 'bot' ) &&
 			$wikipage->exists()
 		) {
-			DeferredUpdates::addUpdate(
-				new ViewCountUpdate( $wikipage->getId() )
-			);
+			DeferredUpdates::addUpdate( new ViewCountUpdate( $wikipage->getId() ) );
 			DeferredUpdates::addUpdate( new SiteStatsUpdate( 1, 0, 0 ) );
 		}
 	}
@@ -140,7 +148,7 @@ class Hooks {
 				$tpl->set( 'footerlinks', $footer );
 			}
 
-			$viewcount = HitCounters::getCount( $skin->getTitle());
+			$viewcount = HitCounters::getCount( $skin->getTitle() );
 			if ( $viewcount ) {
 				wfDebugLog(
 					"HitCounters",

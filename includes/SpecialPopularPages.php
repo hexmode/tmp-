@@ -29,10 +29,9 @@
 
 namespace HitCounters;
 
-use HitCounters\HitCounters;
+use Linker;
 use QueryPage;
 use Title;
-use Linker;
 
 class SpecialPopularPages extends QueryPage {
 	public function __construct( $name = 'PopularPages' ) {
@@ -40,9 +39,7 @@ class SpecialPopularPages extends QueryPage {
 	}
 
 	public function isExpensive() {
-		# page_counter is not indexed
-		# Is there a reason not to index it now?
-		return true;
+		return false;
 	}
 
 	public function isSyndicated() {
@@ -68,7 +65,7 @@ class SpecialPopularPages extends QueryPage {
 		if ( !$title ) {
 			return Html::element(
 				'span',
-				array( 'class' => 'mw-invalidtitle' ),
+				[ 'class' => 'mw-invalidtitle' ],
 				Linker::getInvalidTitleDescription(
 					$this->getContext(),
 					$result->namespace,
