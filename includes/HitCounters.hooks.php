@@ -9,7 +9,6 @@ use IContextSource;
 use Parser;
 use PPFrame;
 use QuickTemplate;
-use SiteStatsUpdate;
 use SiteStats;
 use SkinTemplate;
 use Title;
@@ -126,7 +125,6 @@ class Hooks {
 			$wikipage->exists()
 		) {
 			DeferredUpdates::addUpdate( new ViewCountUpdate( $wikipage->getId() ) );
-			DeferredUpdates::addUpdate( new SiteStatsUpdate( 1, 0, 0 ) );
 		}
 	}
 
