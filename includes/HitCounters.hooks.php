@@ -9,7 +9,6 @@ use IContextSource;
 use Parser;
 use PPFrame;
 use QuickTemplate;
-use SiteStatsUpdate;
 use SiteStats;
 use SkinTemplate;
 use Title;
@@ -51,7 +50,7 @@ class Hooks {
 	}
 
 	protected static function getMostViewedPages( IContextSource $statsPage ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = wfGetDB( DB_SLAVE );
 		$param = HitCounters::getQueryInfo();
 		$options['ORDER BY'] = [ 'page_counter DESC' ];
 		$options['LIMIT'] = 10;
@@ -126,7 +125,6 @@ class Hooks {
 			$wikipage->exists()
 		) {
 			DeferredUpdates::addUpdate( new ViewCountUpdate( $wikipage->getId() ) );
-			DeferredUpdates::addUpdate( new SiteStatsUpdate( 1, 0, 0 ) );
 		}
 	}
 
