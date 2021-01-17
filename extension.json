@@ -19,27 +19,27 @@
 		"HitCountersAlias": "HitCounters.i18n.alias.php"
 	},
 	"SpecialPages": {
-		"PopularPages": "HitCounters\\SpecialPopularPages"
+		"PopularPages": "includes/SpecialPopularPages"
 	},
 	"Hooks": {
-		"SpecialStatsAddExtra": "HitCounters\\Hooks::onSpecialStatsAddExtra",
-		"LoadExtensionSchemaUpdates": "HitCounters\\Hooks::onLoadExtensionSchemaUpdates",
-		"MagicWordwgVariableIDs": "HitCounters\\Hooks::onMagicWordwgVariableIDs",
-		"ParserGetVariableValueSwitch": "HitCounters\\Hooks::onParserGetVariableValueSwitch",
-		"ParserFirstCallInit": "HitCounters\\Hooks::onParserFirstCallInit",
-		"PageViewUpdates": "HitCounters\\Hooks::onPageViewUpdates",
-		"SkinTemplateOutputPageBeforeExec": "HitCounters\\Hooks::onSkinTemplateOutputPageBeforeExec",
-		"AbuseFilter-builder": "HitCounters\\Hooks::onAbuseFilterBuilder",
-		"AbuseFilter-deprecatedVariables": "HitCounters\\Hooks::onAbuseFilterDeprecatedVariables",
-		"AbuseFilter-generateTitleVars": "HitCounters\\Hooks::onAbuseFilterGenerateTitleVars",
-		"AbuseFilter-computeVariable": "HitCounters\\Hooks::onAbuseFilterComputeVariable"
+		"SpecialStatsAddExtra": "Hooks::onSpecialStatsAddExtra",
+		"LoadExtensionSchemaUpdates": "Hooks::onLoadExtensionSchemaUpdates",
+		"MagicWordwgVariableIDs": "Hooks::onMagicWordwgVariableIDs",
+		"ParserGetVariableValueSwitch": "Hooks::onParserGetVariableValueSwitch",
+		"ParserFirstCallInit": "Hooks::onParserFirstCallInit",
+		"PageViewUpdates": "Hooks::onPageViewUpdates",
+		"SkinTemplateOutputPageBeforeExec": "Hooks::onSkinTemplateOutputPageBeforeExec",
+		"AbuseFilter-builder": "Hooks::onAbuseFilterBuilder",
+		"AbuseFilter-deprecatedVariables": "Hooks::onAbuseFilterDeprecatedVariables",
+		"AbuseFilter-generateTitleVars": "Hooks::onAbuseFilterGenerateTitleVars",
+		"AbuseFilter-computeVariable": "Hooks::onAbuseFilterComputeVariable"
 	},
 	"AutoloadClasses": {
-		"HitCounters\\Hooks": "includes/HitCounters.hooks.php",
-		"HitCounters\\HitCounters": "includes/HitCounters.body.php",
+		"Hooks": "includes/HitCounters.hooks.php",
+		"HitCounters": "includes/HitCounters.body.php",
 		"ViewCountUpdate": "includes/ViewCountUpdate.php",
-		"HitCounters\\SpecialPopularPages": "includes/SpecialPopularPages.php",
-		"HitCounters\\HCUpdater": "includes/HCUpdater.php"
+		"SpecialPopularPages": "includes/SpecialPopularPages.php",
+		"HCUpdater": "includes/HCUpdater.php"
 	},
 	"config": {
 		"HitcounterUpdateFreq": 1,
