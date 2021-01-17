@@ -2,11 +2,10 @@
 
 namespace HitCounters;
 
-use Title;
+use MWNamespace;
 use Parser;
 use PPFrame;
-use MWNamespace;
-use MWException;
+use Title;
 
 class HitCounters {
 	protected static $mViews;
@@ -25,9 +24,6 @@ class HitCounters {
 	 * @return int The view count for the page
 	 */
 	public static function getCount( Title $title ) {
-		if ( $title === null ) {
-			throw new MWException( "Asked for count without a title!" );
-		}
 		if ( $title->isSpecialPage() ) {
 			return null;
 		}
@@ -46,9 +42,9 @@ class HitCounters {
 		if ( !$views || $views == 1 ) {
 			$dbr = wfGetDB( DB_SLAVE );
 			$row = $dbr->select(
-				array( 'hit_counter' ),
-				array( 'hits' => 'page_counter' ),
-				array( 'page_id' => $title->getArticleID() ),
+				[ 'hit_counter' ],
+				[ 'hits' => 'page_counter' ],
+				[ 'page_id' => $title->getArticleID() ],
 				__METHOD__ );
 
 			if ( $row !== false && $current = $row->current() ) {
@@ -115,22 +111,22 @@ class HitCounters {
 	public static function getQueryInfo() {
 		global $wgDBprefix;
 
-		return array(
-			'tables' => array( 'page', 'hit_counter' ),
-			'fields' => array(
+		return [
+			'tables' => [ 'page', 'hit_counter' ],
+			'fields' => [
 				'namespace' => 'page_namespace',
 				'title' => 'page_title',
-				'value' => 'page_counter' ),
-			'conds' => array(
+				'value' => 'page_counter' ],
+			'conds' => [
 				'page_is_redirect' => 0,
 				'page_namespace' => MWNamespace::getContentNamespaces(),
-			),
-			'join_conds' => array(
-				'page' => array(
+			],
+			'join_conds' => [
+				'page' => [
 					'INNER JOIN',
 					$wgDBprefix . 'page.page_id = ' .
-					$wgDBprefix . 'hit_counter.page_id' )
-			)
-		);
+					$wgDBprefix . 'hit_counter.page_id' ]
+			]
+		];
 	}
 }

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fitoschido",
 			"Macofe"
 		]
 	},
@@ -12,5 +13,6 @@
 	"hitcounters-statistics-views-total": "Total de visualizaciones",
 	"hitcounters-statistics-views-total-desc": "No se incluyen las visualizaciones a páginas que no existan ni a las páginas especiales",
 	"hitcounters-statistics-views-peredit": "Visualizaciones por edición",
-	"hitcounters-statistics-mostpopular": "Páginas más vistas"
+	"hitcounters-statistics-mostpopular": "Páginas más vistas",
+	"abusefilter-edit-builder-vars-page-views": "Vistas de la página"
 }
