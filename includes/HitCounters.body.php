@@ -34,13 +34,13 @@ class HitCounters {
 		 * information.
 		 */
 		$cache = wfGetCache( CACHE_ANYTHING );
-		$key = wfMemcKey( 'viewcount', $title->getDBkey() );
+		$key = wfMemcKey( 'viewcount', $title->getPrefixedDBkey() );
 		$views = $cache->get( $key );
 		wfDebugLog( "HitCounters", "Got viewcount=" .
 			var_export( $views, true ) . " from cache" );
 
 		if ( !$views || $views == 1 ) {
-			$dbr = wfGetDB( DB_SLAVE );
+			$dbr = wfGetDB( DB_REPLICA );
 			$row = $dbr->select(
 				[ 'hit_counter' ],
 				[ 'hits' => 'page_counter' ],
@@ -70,7 +70,7 @@ class HitCounters {
 				. ": got " . var_export( self::$mViews, true ) .
 				" from cache." );
 			if ( !self::$mViews || self::$mViews == 1 ) {
-				$dbr = wfGetDB( DB_SLAVE );
+				$dbr = wfGetDB( DB_REPLICA );
 				self::$mViews = $dbr->selectField(
 					'hit_counter', 'SUM(page_counter)', '', __METHOD__
 				);
