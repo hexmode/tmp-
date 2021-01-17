@@ -7,10 +7,10 @@
 			"Watermelon juice"
 		]
 	},
-	"hitcounters-desc": "Sayfa görüntüleme istatistiklerini sağlar",
-	"hitcounters-nviews": "$1 {{PLURAL:$1|görüntüleme|görüntüleme}}",
+	"hitcounters-desc": "[[Special:PopularPages|Sayfa görüntüleme istatistiklerini]] sağlar",
+	"hitcounters-nviews": "$1 görüntüleme",
 	"popularpages": "Popüler sayfalar",
-	"hitcounters-pageinfo-views": "Gösterim sayısı",
+	"hitcounters-pageinfo-views": "Görüntüleme sayısı",
 	"hitcounters-statistics-header-views": "İstatistikleri görüntüle",
 	"hitcounters-statistics-views-total": "Toplam görüntüleme",
 	"hitcounters-statistics-views-total-desc": "Var olmayan sayfalara ve özel sayfalara görünümler dahil değildir",
