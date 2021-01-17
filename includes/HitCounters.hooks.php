@@ -162,4 +162,57 @@ class Hooks {
 			}
 		}
 	}
+
+	/**
+	 * Tells AbuseFilter about our variables
+	 * @param array &$builderValues
+	 * @return void
+	 */
+	public static function onAbuseFilterBuilder( array &$builderValues ) {
+		$builderValues['vars']['page_views'] = 'page-views';
+		$builderValues['vars']['moved_from_views'] = 'movedfrom-views';
+		$builderValues['vars']['moved_to_views'] = 'movedto-views';
+	}
+
+	/**
+	 * Old, deprecated syntax
+	 * @param array &$deprecatedVars
+	 * @return void
+	 */
+	public static function onAbuseFilterDeprecatedVariables( array &$deprecatedVars ) {
+		$deprecatedVars['article_views'] = 'page_views';
+	}
+
+	/**
+	 * Lazy-loads the article_views variable
+	 * @param AbuseFilterVariableHolder $vars
+	 * @param Title $title
+	 * @param string $prefix
+	 * @return void
+	 */
+	public static function onAbuseFilterGenerateTitleVars(
+		AbuseFilterVariableHolder $vars,
+		Title $title,
+		$prefix
+	) {
+		$vars->setLazyLoadVar( $prefix . '_VIEWS', 'page-views', [ 'title' => $title ] );
+	}
+
+	/**
+	 * Computes the article_views variables
+	 * @param string $method
+	 * @param AbuseFilterVariableHolder $vars
+	 * @param array $parameters
+	 * @param null &$result
+	 * @return bool
+	 */
+	public static function onAbuseFilterComputeVariable( $method, $vars, $parameters, &$result ) {
+		// Both methods are needed because they're saved in the DB and are necessary for old entries
+		if ( $method === 'article-views' || $method === 'page-views' ) {
+			$result = HitCounters::getCount( $parameters['title'] );
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
