@@ -5,10 +5,10 @@ use AbuseFilterVariableHolder;
 use CoreParserFunctions;
 use DatabaseUpdater;
 use DeferredUpdates;
+use IContextSource;
 use Parser;
 use PPFrame;
 use QuickTemplate;
-use RequestContext;
 use SiteStatsUpdate;
 use SiteStats;
 use SkinTemplate;
@@ -33,7 +33,7 @@ class Hooks {
 	}
 
 	public static function onSpecialStatsAddExtra(
-		array &$extraStats, RequestContext $statsPage
+		array &$extraStats, IContextSource $statsPage
 	) {
 		global $wgContLang;
 
@@ -50,7 +50,7 @@ class Hooks {
 		return true;
 	}
 
-	protected static function getMostViewedPages( RequestContext $statsPage ) {
+	protected static function getMostViewedPages( IContextSource $statsPage ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$param = HitCounters::getQueryInfo();
 		$options['ORDER BY'] = [ 'page_counter DESC' ];
