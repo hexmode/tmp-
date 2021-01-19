@@ -61,7 +61,7 @@ class SpecialPopularPages extends QueryPage {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function formatResult( $skin, $result ) {
-		global $wgContLang;
+		global $wgContLang, $wgEnableAddTextLength, $wgEnableAddPageId;
 
 		$title = Title::makeTitleSafe( $result->namespace, $result->title );
 		if ( !$title ) {
@@ -80,10 +80,31 @@ class SpecialPopularPages extends QueryPage {
 			$wgContLang->convert( htmlspecialchars( $title->getPrefixedText() ) )
 		);
 
+		/* === wima hack ===
 		return $this->getLanguage()->specialList(
 			$link,
 			$this->msg( 'hitcounters-nviews' )->numParams( $result->value )->escaped()
 		);
+		------------------- */
+		if ( $wgEnableAddTextLength ) {
+			if ( $wgEnableAddPageId ) {
+				return $this->getLanguage()->specialList(
+					$link,
+					$this->msg( 'hitcounters-nviews3' )->rawParams( $title->getArticleID() )->numParams( $result->value )->numParams( $result->length )->escaped()
+				);
+			} else {
+				return $this->getLanguage()->specialList(
+					$link,
+					$this->msg( 'hitcounters-nviews2' )->numParams( $result->value )->numParams( $result->length )->escaped()
+				);
+			}
+		} else {
+			return $this->getLanguage()->specialList(
+				$link,
+				$this->msg( 'hitcounters-nviews' )->numParams( $result->value )->escaped()
+			);
+		}
+		/* === End hack === */
 	}
 
 	protected function getGroupName() {

@@ -132,8 +132,9 @@ class HitCounters {
 			'tables' => [ 'page', 'hit_counter' ],
 			'fields' => [
 				'namespace' => 'page_namespace',
-				'title' => 'page_title',
-				'value' => 'page_counter' ],
+				'title'  => 'page_title',
+				'value'  => 'page_counter',
+				'length' => 'page_len' ], /* === wima hack === */
 			'conds' => [
 				'page_is_redirect' => 0,
 				'page_namespace' => MWNamespace::getContentNamespaces(),

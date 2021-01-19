@@ -38,7 +38,21 @@ v0.3.1.1
 
 v0.3.2
 
+Version 0.3.2 is compatible with 1.25+ until 1.35+.
+
 - Fixed a problem with backward compatibility to version 1.25
+
+v0.3.3
+
+- Add: Output of the text length in the special page "Popular Pages"
+- Add: Variables for configuration in "LocalSettings.php"
+
+# Default settings
+
+* $wgDisableCounters = false;
+* $wgEnableCountersAtTheFooter = true;
+* $wgEnableAddTextLength = false;
+* $wgEnableAddPageId = false;
 
 ## Background
 

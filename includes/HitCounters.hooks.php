@@ -132,7 +132,7 @@ class Hooks {
 		SkinTemplate &$skin,
 		QuickTemplate &$tpl
 	) {
-		global $wgDisableCounters;
+		global $wgDisableCounters, $wgEnableCountersAtTheFooter, $wgEnableAddTextLength;
 
 		/* Without this check two lines are added to the page. */
 		static $called = false;
@@ -141,7 +141,11 @@ class Hooks {
 		}
 		$called = true;
 
+		/* === wima hack ===
 		if ( !$wgDisableCounters ) {
+		------------------- */
+		if ( !$wgDisableCounters && $wgEnableCountersAtTheFooter ) {
+		/* === End hack === */
 			$footer = $tpl->get( 'footerlinks' );
 			if ( isset( $footer['info'] ) && is_array( $footer['info'] ) ) {
 				// 'viewcount' goes after 'lastmod', we'll just assume
@@ -156,8 +160,19 @@ class Hooks {
 					"HitCounters",
 					"Got viewcount=$viewcount and putting in page"
 				);
+				/* === wima hack ===
 				$tpl->set( 'viewcount', $skin->msg( 'viewcount' )->
 					numParams( $viewcount )->parse() );
+				------------------- */
+				if ( $wgEnableAddTextLength ) {
+					$charactercount = $skin->getTitle()->getLength(); // strlen( $text );
+					$tpl->set( 'viewcount', $skin->msg( 'hitcounters-viewcount2' )->
+						numParams( $viewcount )->numParams( $charactercount )->parse() );
+				} else {
+					$tpl->set( 'viewcount', $skin->msg( 'hitcounters-viewcount' )->
+						numParams( $viewcount )->parse() );
+				}
+				/* === End hack === */
 			}
 		}
 	}
