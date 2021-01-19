@@ -37,13 +37,16 @@ class Hooks {
 		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
 
 		$totalViews = HitCounters::views();
-		$extraStats['hitcounters-statistics-header-views']['hitcounters-statistics-views-total'] = $totalViews;
-		$extraStats['hitcounters-statistics-header-views']['hitcounters-statistics-views-peredit'] =
-			$contLang->formatNum( $totalViews
-				? sprintf( '%.2f', $totalViews / SiteStats::edits() )
-				: 0 );
-		$extraStats['hitcounters-statistics-mostpopular'] =
-			self::getMostViewedPages( $statsPage );
+		$extraStats = [
+			'hitcounters-statistics-header-views' => [
+				'hitcounters-statistics-views-total' => $totalViews,
+				'hitcounters-statistics-views-peredit' => $contLang->formatNum(
+					$totalViews
+					? sprintf( '%.2f', $totalViews / SiteStats::edits() )
+					: 0
+				) ],
+			'hitcounters-statistics-mostpopular' => self::getMostViewedPages( $statsPage )
+		];
 		return true;
 	}
 
@@ -154,13 +157,11 @@ class Hooks {
 					"HitCounters",
 					"Got viewcount=$viewcount and putting in page"
 				);
-				$viewcountMsg = $skin->msg( 'hitcounters-nviews' )->
-					numParams( $viewcount )->parse();
+				$viewcountMsg = $skin->msg( 'viewcount' )->
+							  numParams( $viewcount )->parse();
 
-				// Verbindung zur Fußzeile herstellen
+				// Set up the footer
 				if ( is_array( $footerLinks ) ) {
-					// 'viewcount' goes after 'lastmod', we'll just assume
-					// 'viewcount' is the 0th item
 					array_splice( $footerLinks, 1, 0, [ 'viewcount' => $viewcountMsg ] );
 				} else {
 					$footerLinks['viewcount'] = $viewcountMsg;
