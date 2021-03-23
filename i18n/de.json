@@ -8,6 +8,7 @@
 	"hitcounters-extensionname": "Hit Counters",
 	"hitcounters-desc": "Ermöglicht die Aufzeichnung und Darstellung von [[Special:PopularPages|Seitenaufruf-Statistiken]]",
 	"hitcounters-nviews": "{{PLURAL:$1|Ein Aufruf|$1 Aufrufe}}",
+	"hitcounters-viewcount": "Diese Seite wurde bisher {{PLURAL:$1|einmal|$1 mal}} abgerufen.",
 	"popularpages": "Beliebte Seiten",
 	"hitcounters-pageinfo-views": "Anzahl der Aufrufe",
 	"hitcounters-statistics-header-views": "Aufrufstatistik",
