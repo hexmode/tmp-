@@ -8,6 +8,7 @@
 	"hitcounters-extensionname": "Hit Counters",
 	"hitcounters-desc": "Maakt de opname en weergave van [[Special:PopularPages|pagina-oproepstatistieken]] mogelijk",
     "hitcounters-nviews": "$1 keer bekeken",
+	"hitcounters-viewcount": "Deze pagina is {{PLURAL:$1|één keer|$1 keer}} bekeken.",
 	"popularpages": "Veel bekeken pagina's",
 	"hitcounters-pageinfo-views": "Aantal weergaven",
 	"hitcounters-statistics-header-views": "Statistieken weergeven",

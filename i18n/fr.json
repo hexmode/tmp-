@@ -8,6 +8,7 @@
 	"hitcounters-extensionname": "Hit Counters",
 	"hitcounters-desc": "Fournit les [[Special:PopularPages|statistiques de consultation par page]]",
 	"hitcounters-nviews": "$1 {{PLURAL:$1|consultation|consultations}}",
+	"hitcounters-viewcount": "Cette page a été consultée {{PLURAL:$1|une fois|$1 fois}}.",
 	"popularpages": "Pages les plus populaires",
 	"hitcounters-pageinfo-views": "Nombre de consultations",
 	"hitcounters-statistics-header-views": "Statistiques des consultations",

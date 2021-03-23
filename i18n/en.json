@@ -8,6 +8,7 @@
 	"hitcounters-desc": "Provides per [[Special:PopularPages|page view statistics]]",
 	"hitcounters-page-label": "[[$1|$1]]",
 	"hitcounters-nviews": "$1 {{PLURAL:$1|view|views}}",
+	"hitcounters-viewcount": "This page has been accessed {{PLURAL:$1|once|$1 times}}.",
 	"popularpages": "Popular pages",
 	"popularpages-summary": "",
 	"hitcounters-pageinfo-views": "Number of views",

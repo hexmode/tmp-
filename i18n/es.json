@@ -8,6 +8,7 @@
 	"hitcounters-extensionname": "Hit Counters",
 	"hitcounters-desc": "Proporciona [[Special:PopularPages|estadísticas de visualizaciones por página]]",
 	"hitcounters-nviews": "$1 {{PLURAL:$1|visualización|visualizaciones}}",
+	"hitcounters-viewcount": "Esta página se ha visitado {{PLURAL:$1|una vez|$1 veces}}.",
 	"popularpages": "Páginas populares",
 	"hitcounters-pageinfo-views": "Número de visualizaciones",
 	"hitcounters-statistics-header-views": "Ver estadísticas",
