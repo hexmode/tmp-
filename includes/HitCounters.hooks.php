@@ -156,7 +156,7 @@ class Hooks {
 					"HitCounters",
 					"Got viewcount=$viewcount and putting in page"
 				);
-				$tpl->set( 'viewcount', $skin->msg( 'viewcount' )->
+				$tpl->set( 'viewcount', $skin->msg( 'hitcounters-nviews' )->
 					numParams( $viewcount )->parse() );
 			}
 		}
